@@ -25,5 +25,11 @@ class RandomQuoteTest extends TestCase
     {
         $this->assertInstanceOf(ContentProviderInterface::class, $this->RandomQuoteGenerator);
     }
+    public function testRandomQuoteGeneratorGeneratesCanGetOneSentence():void
+    {
+        $quote = $this->RandomQuoteGenerator->getOneSentence();
+        preg_match_all('/[A-Z].*?[.!?]/s',$quote,$result);
+        $this->assertSame(count($result[0]), 1);
+    }
 
 }

@@ -4,7 +4,9 @@
 namespace App\Components\RandomQuote;
 
 
-class RandomQuoteGenerator
+use App\Domain\Content\Contracts\ContentProviderInterface;
+
+class RandomQuoteGenerator implements ContentProviderInterface
 {
 
 }

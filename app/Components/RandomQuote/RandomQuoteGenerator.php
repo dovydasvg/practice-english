@@ -25,7 +25,12 @@ class RandomQuoteGenerator implements ContentProviderInterface
 
     public function getAQuote(): string
     {
-        return $this->quoteService->fetchAQuote();
+        return $this->quoteService->fetchAQuoteWithTheAuthor();
+    }
+
+    public function getAQuoteByTag(string $tag): string
+    {
+        return $this->quoteService->fetchAQuoteByTag($tag);
     }
 
 }

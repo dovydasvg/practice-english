@@ -40,5 +40,14 @@ class RandomQuoteTest extends TestCase
         $quote = $this->RandomQuoteService->fetchAQuote();
         $this->assertIsString($quote);
     }
-
+    public function testRandomQuoteGeneratorCanGetAFullQuoteWithName(): void
+    {
+        $quote = $this->RandomQuoteGenerator->getAQuote();
+        $this->assertStringContainsString(RandomQuoteService::AUTHOR_PREFIX, $quote);
+    }
+    public function testRandomQuoteGeneratorCanGetAQuoteByTag(): void
+    {
+         $quote = $this->RandomQuoteGenerator->getAQuoteByTag('technology');
+         $this->assertNotEmpty($quote);
+    }
 }

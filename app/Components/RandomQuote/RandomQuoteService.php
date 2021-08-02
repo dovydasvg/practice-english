@@ -4,16 +4,21 @@
 namespace App\Components\RandomQuote;
 
 
+use Illuminate\Contracts\Encryption\DecryptException;
+use JsonException;
+
 class RandomQuoteService
 {
-    /**
-     * @throws \JsonException
-     */
-    public function fetchAQuote()
+
+    public function fetchAQuote(): string
     {
         $content = $this->callAPI();
-        $response = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-        return $response["content"];
+        try {
+            $response = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+            return $response["content"];
+        } catch (JsonException $e) {
+            throw new DecryptException('Could not decript the data.', 0, $e);
+        }
     }
 
     private function callAPI(): string

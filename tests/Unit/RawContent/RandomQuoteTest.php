@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\RawContent;
 
+use App\Components\RandomQuote\RandomQuoteService;
 use App\Domain\Content\Contracts\ContentProviderInterface;
 use PHPUnit\Framework\TestCase;
 use App\Components\RandomQuote\RandomQuoteGenerator;
@@ -12,10 +13,12 @@ class RandomQuoteTest extends TestCase
      * @var RandomQuoteGenerator
      */
     private RandomQuoteGenerator $RandomQuoteGenerator;
+    private RandomQuoteService $RandomQuoteService;
 
     public function setUp(): void
     {
-        $this->RandomQuoteGenerator = new RandomQuoteGenerator;
+        $this->RandomQuoteService = new RandomQuoteService();
+        $this->RandomQuoteGenerator = new RandomQuoteGenerator($this->RandomQuoteService);
     }
     public function testThatRandomQuoteGeneratorClassExists(): void
     {
@@ -30,6 +33,12 @@ class RandomQuoteTest extends TestCase
         $quote = $this->RandomQuoteGenerator->getOneSentence();
         preg_match_all('/[A-Z].*?[.!?]/s',$quote,$result);
         $this->assertSame(count($result[0]), 1);
+    }
+
+    public function testRandomQuoteServiceFetchesQuotes(): void
+    {
+        $quote = $this->RandomQuoteService->fetchAQuote();
+        $this->assertIsString($quote);
     }
 
 }

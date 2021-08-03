@@ -5,16 +5,19 @@ namespace Tests\Unit\RawContent;
 use App\Components\OpenAi\OpenAiServices;
 use App\Components\OpenAi\OpenAiTextGenerator;
 use App\Domain\Content\Contracts\ContentProviderInterface;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class OpenAiTest extends TestCase
 {
 
+    private const PROMPT = 'Fantasy football being the best game ever.';
+    private const MIN_PROMPT = 'football';
     private OpenAiTextGenerator $OpenAiGenerator;
     private OpenAiServices $OpenAiServices;
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->OpenAiServices = new OpenAiServices();
         $this->OpenAiGenerator = new OpenAiTextGenerator($this->OpenAiServices);
     }
@@ -32,6 +35,12 @@ class OpenAiTest extends TestCase
     public function testThatOpenAiTextGeneratorCanProvideSomeRandomContent(): void
     {
         $this->assertIsString($this->OpenAiGenerator->getRandomContent());
+    }
+
+    public function testThatOpenAiTextGeneratorCanGenerateTextBasedOnAPrompt(): void
+    {
+        $result = $this->OpenAiGenerator->getContentByPrompt(self::PROMPT);
+        $this->assertStringContainsStringIgnoringCase(self::MIN_PROMPT,$result);
     }
 
 }

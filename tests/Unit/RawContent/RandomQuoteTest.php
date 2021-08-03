@@ -53,7 +53,7 @@ class RandomQuoteTest extends TestCase
          $quote = $this->RandomQuoteGenerator->getAQuoteByTag('technology');
          $this->assertNotEmpty($quote);
     }
-    public function testRandomQuoteGeneratorGivesAQuoteWhenGetContentCalled(): void
+    public function testRandomQuoteGeneratorGivesAQuoteWhenGetRandomContentCalled(): void
     {
         $this->assertIsString($this->RandomQuoteGenerator->getRandomContent());
     }

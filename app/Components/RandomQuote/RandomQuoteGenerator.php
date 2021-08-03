@@ -10,17 +10,18 @@ class RandomQuoteGenerator implements ContentProviderInterface
 {
 
     private RandomQuoteService $quoteService;
+    private RandomQuoteParser $parser;
 
-    public function __construct(RandomQuoteService $quoteService)
+    public function __construct(RandomQuoteService $quoteService, RandomQuoteParser $parser)
     {
         $this->quoteService = $quoteService;
+        $this->parser = $parser;
     }
 
     public function getOneSentence(): string
     {
         $quote = $this->getAQuote();
-        preg_match('/[A-Z].*?[.!?]/s', $quote,$one_sentence);
-        return $one_sentence[0];
+        return $this->parser->getFirstSentence($quote);
     }
 
     public function getAQuote(): string

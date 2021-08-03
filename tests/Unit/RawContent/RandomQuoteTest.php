@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\RawContent;
 
+use App\Components\RandomQuote\RandomQuoteParser;
 use App\Components\RandomQuote\RandomQuoteService;
 use App\Domain\Content\Contracts\ContentProviderInterface;
 use PHPUnit\Framework\TestCase;
@@ -14,11 +15,13 @@ class RandomQuoteTest extends TestCase
      */
     private RandomQuoteGenerator $RandomQuoteGenerator;
     private RandomQuoteService $RandomQuoteService;
+    private RandomQuoteParser $RandomQuoteParser;
 
     public function setUp(): void
     {
         $this->RandomQuoteService = new RandomQuoteService();
-        $this->RandomQuoteGenerator = new RandomQuoteGenerator($this->RandomQuoteService);
+        $this->RandomQuoteParser = new RandomQuoteParser();
+        $this->RandomQuoteGenerator = new RandomQuoteGenerator($this->RandomQuoteService, $this->RandomQuoteParser);
     }
     public function testThatRandomQuoteGeneratorClassExists(): void
     {

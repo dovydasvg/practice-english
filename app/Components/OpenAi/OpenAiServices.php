@@ -5,7 +5,7 @@ namespace App\Components\OpenAi;
 
 
 use Error;
-use Illuminate\Support\Env;
+use Exception;
 
 class OpenAiServices
 {
@@ -43,16 +43,24 @@ class OpenAiServices
             CURLOPT_POSTFIELDS => $postfields,
             CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
-                'Authorization: Bearer '. Env::get('OPEN_AI_SECRET')
+                'Authorization: Bearer ' . config('apikeys.openai')
             ],
         ]);
         $response = curl_exec($curl);
         $err = curl_error($curl);
-        curl_close($curl);
+        $response = json_decode($response);
+        if(! empty($response->error)){
+            throw new Exception('OpenAi returned an error: '.$response->error->message);
+        }
         if ($err) {
             throw new Error('The API call returned an error: '.$err);
         } else {
-            return $response;
+            return $response->choices[0]->text;
         }
+    }
+
+    public function fetchASentenceByPrompt(string $prompt): string
+    {
+        return $this->callAPI($prompt);
     }
 }

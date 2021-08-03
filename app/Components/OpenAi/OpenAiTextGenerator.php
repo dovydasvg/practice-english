@@ -16,7 +16,7 @@ class OpenAiTextGenerator implements ContentProviderInterface
         $this->services = $services;
     }
 
-    public function getContent(): string
+    public function getRandomContent(): string
     {
         return $this->services->fetchRandomSentence();
     }

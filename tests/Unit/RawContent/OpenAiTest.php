@@ -31,7 +31,7 @@ class OpenAiTest extends TestCase
 
     public function testThatOpenAiTextGeneratorCanProvideSomeRandomContent(): void
     {
-        $this->assertIsString($this->OpenAiGenerator->getContent());
+        $this->assertIsString($this->OpenAiGenerator->getRandomContent());
     }
 
 }

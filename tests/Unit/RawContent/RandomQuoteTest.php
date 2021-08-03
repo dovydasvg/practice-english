@@ -55,6 +55,6 @@ class RandomQuoteTest extends TestCase
     }
     public function testRandomQuoteGeneratorGivesAQuoteWhenGetContentCalled(): void
     {
-        $this->assertIsString($this->RandomQuoteGenerator->getContent());
+        $this->assertIsString($this->RandomQuoteGenerator->getRandomContent());
     }
 }

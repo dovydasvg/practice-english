@@ -4,7 +4,7 @@ namespace App\Domain\Exercises\Model;
 
 use App\Domain\Exercises\ValueObject\Exercise;
 
-abstract class ExerciseInterface
+abstract class AbstractExercise
 {
     public const EXERCISE_PLACEHOLDER = '____';
     abstract public function getExercise(): Exercise;

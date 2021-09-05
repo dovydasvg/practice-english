@@ -4,7 +4,7 @@ namespace App\Domain\Exercises\Model;
 
 use App\Domain\Exercises\ValueObject\Exercise;
 
-class ArticleExercise extends ExerciseInterface
+class ArticleAbstractExercise extends AbstractExercise
 {
 
     private Exercise $exercise;

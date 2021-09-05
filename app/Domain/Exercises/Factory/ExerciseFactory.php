@@ -2,13 +2,13 @@
 
 namespace App\Domain\Exercises\Factory;
 
-use App\Domain\Exercises\Model\ExerciseInterface;
-use App\Domain\Exercises\Model\ArticleExercise;
+use App\Domain\Exercises\Model\AbstractExercise;
+use App\Domain\Exercises\Model\ArticleAbstractExercise;
 
 class ExerciseFactory
 {
-    public function createArticleExercise(string $rawString): ExerciseInterface
+    public function createArticleExercise(string $rawString): AbstractExercise
     {
-        return new ArticleExercise($rawString);
+        return new ArticleAbstractExercise($rawString);
     }
 }
